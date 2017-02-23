@@ -15,7 +15,7 @@ mainApp2.config(['$routeProvider', function ($routeProvider) {
     otherwise({
         redirectTo: '/addStudent'
     });
---testing
+    --testing
     --one more addition
 }]);
 
