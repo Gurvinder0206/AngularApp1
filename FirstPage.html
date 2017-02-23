@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="mainApp.js"></script>
+    <script src="mainApp2.js"></script>
+    <script src="studentService.js"></script>
+    <script src="studentController.js"></script>
+</head>
+<body>
+    <div ng-app="mainApp">
+        <!--student section-->
+        <div ng-controller="studentController">
+            <form name="studentForm" novalidate>
+                <table>
+                    <tr>
+                        <td>First Name:</td>
+                        <td>
+                            <input name="firstname" type="text" ng-model="student.firstName" required/>
+                            <span style="color:red" ng-show="studentForm.firstname.$dirty && studentForm.firstname.$invalid">
+                                <span ng-show="studentForm.firstname.$error.required">First Name is required.</span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Last Name:</td>
+                        <td><input type="text" ng-model="student.lastName" /></td>
+                    </tr>
+                    <tr>
+                        <td>Full Name:</td>
+                        <td>{{student.fullName() | uppercase}}</td>
+                    </tr>
+                    <tr>
+                        <td>Enter Subject</td>
+                        <td><input type="text" ng-model="subjectName" /> </td>
+                    </tr>
+                    <tr>
+                        <td>Subjects:</td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Marks</th>
+                                </tr>
+                                <tr ng-repeat="subject in student.subjects | filter: subjectName">
+                                    <td>{{subject.name}}</td>
+                                    <td>{{subject.marks}}</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button ng-click="reset()">Reset</button>
+                        </td>
+                        <td>
+                            <button ng-click="submit()" ng-disabled="studentForm.firstname.$dirty && studentForm.firstname.$invalid">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <br />
+        <hr />
+        <br />
+
+        <!--maths calculations-->
+        <div ng-include="'maths.html'"></div>
+
+        <br />
+        <hr />
+        <br />
+
+        <!--events -->
+        <div>
+            <input type="checkbox" ng-model="enableDisable" />Enable/Disable button
+            <input type="button" ng-disabled="enableDisable" value="Click Me!" />
+            <br />
+            <input type="checkbox" ng-model="showHide" />Show/Hide button
+            <input type="button" ng-show="showHide" value="Click Me!" />
+        </div>
+
+        <!--ajax call-->
+        <div ng-controller="ajaxController">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll No</th>
+                    <th>Percentage</th>
+                </tr>
+                <tr ng-repeat="stud in students">
+                    <td>{{stud.Name}}</td>
+                    <td>{{stud.RollNo}}</td>
+                    <td>{{stud.Percentage}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+</body>
+</html>
